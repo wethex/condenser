@@ -21,7 +21,7 @@ simple as pulling in the github repo and issuing one command to build it,
 like this:
 
 ```bash
-git clone https://gitlab.syncad.com/hive/condenser
+git clone https://github.com/wethex/condenser.git
 cd condenser
 ./run.sh start dev
 ```
@@ -35,7 +35,7 @@ To build developer image manually, you can use:
 If you like to run and build condenser and additionally a reverse-proxy using an Nginx Docker image, with companion Letsencrypt (SSL) support, you can simple launch the Docker-compose files via the included `run.sh`-scripts.
 
 ```bash
-git clone https://gitlab.syncad.com/hive/condenser
+git clone https://github.com/wethex/condenser.git
 cd condenser
 ./run.sh start proxy            # to start the nginx reverse proxy (with ssl support)
 ./run.sh start (prod|dev|stg)   # to build and start the condensor image
@@ -48,7 +48,7 @@ cd condenser
 #### Clone the repository and make a tmp folder
 
 ```bash
-git clone https://gitlab.syncad.com/hive/condenser
+git clone https://github.com/wethex/condenser.git
 cd condenser
 mkdir tmp
 ```
