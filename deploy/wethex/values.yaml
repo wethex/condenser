@@ -1,0 +1,93 @@
+# Default values for wethex.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: wethex/condenser
+  pullPolicy: Always
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "stable"
+env: {}
+secret:
+  # node
+  # > crypto.randomBytes(32).toString('base64')
+  # > .exit
+  # echo '' | base64
+  SDC_SESSION_SECRETKEY: ZXhpS2R5RitJd1JJWEpEbXRHSWw0dldVejRpM2VWU0lTcGZab2VZYzBzND0K
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 80
+
+
+ingress:
+  enabled: false
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-production
+    # nginx.ingress.kubernetes.io/configuration-snippet: |
+    #   more_set_headers "Access-Control-Allow-Origin: $http_origin";
+    #   more_set_headers "Access-Control-Allow-Credentials: true";
+    #   more_set_headers "Access-Control-Allow-Headers: Content-Type, *";
+    #   more_set_headers "Access-Control-Allow-Methods:  PUT, GET, POST, OPTIONS";
+  hosts:
+  - host: wethex.org
+    paths:
+    - /
+  tls: 
+  - hosts:
+    - wethex.org
+    secretName: wethex-tls
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
