@@ -1,15 +1,15 @@
 // sometimes it's impossible to use html tags to style coin name, hence usage of _UPPERCASE modifier
-export const APP_NAME = 'Hive';
+export const APP_NAME = 'WeTheX';
 // sometimes APP_NAME is written in non-latin characters, but they are needed for technical purposes
 // ie. "Голос" > "Golos"
-export const APP_NAME_LATIN = 'Hive';
-export const APP_NAME_UPPERCASE = 'HIVE';
-export const APP_ICON = 'hive';
+export const APP_NAME_LATIN = 'WeTheX';
+export const APP_NAME_UPPERCASE = 'WeTheX';
+export const APP_ICON = 'WeTheX';
 // FIXME figure out best way to do this on both client and server from env
 // vars. client should read $STM_Config, server should read config package.
-export const APP_URL = 'https://hive.blog';
-export const APP_DOMAIN = 'hive.blog';
-export const HIVE_SIGNER_APP = 'hive.blog';
+export const APP_URL = 'https://wethex.org';
+export const APP_DOMAIN = 'wethex.org';
+export const HIVE_SIGNER_APP = 'wethex.org';
 export const LIQUID_TOKEN = 'Hive';
 // sometimes it's impossible to use html tags to style coin name, hence usage of _UPPERCASE modifier
 export const LIQUID_TOKEN_UPPERCASE = 'HIVE';
