@@ -69,9 +69,9 @@ class PostsIndexLayout extends React.Component {
                             username={username}
                         />
                     )}
-                    {isBrowser &&
+                    {/* {isBrowser &&
                         !community &&
-                        !username && <SidebarNewUsers />}
+                        !username && <SidebarNewUsers />} */}
                     {isBrowser &&
                         !community &&
                         username && (

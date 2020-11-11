@@ -327,7 +327,7 @@ class Header extends React.Component {
                         </div>
 
                         <nav className="row Header__nav">
-                            <div className="small-6 medium-4 large-3 columns Header__logotype">
+                            <div className="small-6 medium-4 large-3 columns Header__logotype" style={{height: '100%'}}>
                                 <Link to={logo_link}>
                                     <SteemLogo
                                         nightmodeEnabled={nightmodeEnabled}
@@ -336,7 +336,7 @@ class Header extends React.Component {
                             </div>
 
                             <div className="large-5 columns show-for-large large-centered Header__sort">
-                                <ul className="nav__block-list">
+                                {/* <ul className="nav__block-list">
                                     <li className={`nav__block-list-item`}>
                                         <Link to={'/'}>Posts</Link>
                                     </li>
@@ -367,7 +367,7 @@ class Header extends React.Component {
                                             Our dApps
                                         </Link>
                                     </li>
-                                </ul>
+                                </ul> */}
                             </div>
 
                             <div className="small-6 medium-8 large-4 columns Header__buttons">

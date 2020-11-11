@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 const SteemLogo = ({ nightmodeEnabled }) => {
     const logo = nightmodeEnabled
-        ? '/images/hive-blog-logo-nightmode.svg'
-        : '/images/hive-blog-logo.svg';
+        ? '/images/wethex-logo-nightmode.svg'
+        : '/images/wethex-logo.svg';
 
     return (
         <span className="logo">
@@ -12,7 +12,7 @@ const SteemLogo = ({ nightmodeEnabled }) => {
                 <title>Home</title>
                 <g id="logo" />
             </svg> */}
-            <img alt="logo" width="150" height="40" src={logo} />
+            <img alt="logo" width="50" height="50" style={{marginTop: '8px'}} src={logo} />
         </span>
     );
 };
