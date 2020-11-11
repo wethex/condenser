@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { serverApiRecordEvent } from 'app/utils/ServerApiClient';
 import Icon from 'app/components/elements/Icon';
 import CopyToClipboard from 'react-copy-to-clipboard';
+import { APP_DOMAIN } from 'app/client_config';
 import tt from 'counterpart';
 
 class ExplorePost extends Component {
@@ -60,8 +61,8 @@ class ExplorePost extends Component {
         const hivedb = 'https://hive-db.com' + link;
         const peakd = 'https://peakd.com' + link;
         const esteem = 'https://esteem.app' + link;
-        const hiveblog = 'https://hive.blog' + link;
-        const hiveblogMd = '[' + title + '](https://hive.blog' + link + ')';
+        const hiveblog = 'https://'+ APP_DOMAIN + link;
+        const hiveblogMd = '[' + title + '](https://'+ APP_DOMAIN + link + ')';
         let text =
             this.state.copied == true
                 ? tt('explorepost_jsx.copied')
@@ -106,7 +107,7 @@ class ExplorePost extends Component {
                         <span>{textMD}</span>
                     </CopyToClipboard>
                 </div>
-                <h5>{tt('explorepost_jsx.alternative_sources')}</h5>
+                {/* <h5>{tt('explorepost_jsx.alternative_sources')}</h5>
                 <ul>
                     <li>
                         <a
@@ -148,7 +149,7 @@ class ExplorePost extends Component {
                             esteem.app <Icon name="extlink" />
                         </a>
                     </li>
-                </ul>
+                </ul> */}
             </span>
         );
     }

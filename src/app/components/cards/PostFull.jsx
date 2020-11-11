@@ -214,7 +214,7 @@ class PostFull extends React.Component {
         const { post } = this.props;
         if (!post) return;
         const author = post.get('author');
-        const permlink = post.get('permlink');
+        const permlink = this.share_params.link;
         this.props.showPromotePost(author, permlink);
     };
 
@@ -232,7 +232,7 @@ class PostFull extends React.Component {
         this.props.stateSet(key, !isPinned);
 
         const account = post.get('author');
-        const permlink = post.get('permlink');
+        const permlink = this.share_params.link; //post.get('permlink');
         this.props.togglePinnedPost(
             !isPinned,
             username,

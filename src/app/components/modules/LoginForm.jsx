@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
+import Icon from 'app/components/elements/Icon';
 import * as transactionActions from 'app/redux/TransactionReducer';
 import * as globalActions from 'app/redux/GlobalReducer';
 import * as userActions from 'app/redux/UserReducer';
@@ -352,7 +353,7 @@ class LoginForm extends Component {
                 method="post"
             >
                 <div className="input-group">
-                    <span className="input-group-label">@</span>
+                    <span className="input-group-label"><Icon size="1x" name="person" /></span>
                     <input
                         className="input-group-field"
                         type="text"
@@ -374,8 +375,10 @@ class LoginForm extends Component {
                         {error && <div className="error">{error}&nbsp;</div>}
                     </div>
                 ) : (
-                    <div>
+                    <div className="input-group">
+                        <span className="input-group-label"><Icon size="1x" name="key" /></span>
                         <input
+                            className="input-group-field"
                             type="password"
                             required
                             ref="pw"
