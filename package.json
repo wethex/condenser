@@ -4,7 +4,7 @@
     "type": "git",
     "url": "https://gitlab.syncad.com/hive/condenser.git"
   },
-  "version": "1.2.4",
+  "version": "1.1.0",
   "description": "hive.blog is the koa web server & middleware and react.js in-browser code for the world's first blockchain content + social media monetization platform!",
   "main": "index.js",
   "scripts": {
