@@ -4,7 +4,7 @@
     "type": "git",
     "url": "https://gitlab.syncad.com/hive/condenser.git"
   },
-  "version": "1.0.0",
+  "version": "1.2.4",
   "description": "hive.blog is the koa web server & middleware and react.js in-browser code for the world's first blockchain content + social media monetization platform!",
   "main": "index.js",
   "scripts": {
@@ -14,7 +14,8 @@
     "ci:test": "jest --coverage",
     "ci:eslint": "eslint src/",
     "fmt": "prettier --config .prettierrc --write 'src/**/*.js*'",
-    "precommit": "lint-staged",
+    "precommit": "jsonnet, lint-staged",
+    "jsonnet": "drone jsonnet --stream",
     "production": "NODE_ENV=production node lib/server/index.js",
     "start": "NODE_ENV=development babel-node ./webpack/dev-server.js",
     "debug": "NODE_ENV=development webpack --config ./webpack/debug.config.js && rm -rf ./lib && babel src --source-maps --out-dir lib -D && node --inspect-brk lib/server/index.js",
@@ -150,6 +151,7 @@
     "node-sass": "4.13.1",
     "node-watch": "0.5.5",
     "picturefill": "3.0.2",
+    "pre-commit": "^1.2.2",
     "prettier": "1.8.2",
     "raw-loader": "0.5.1",
     "react-addons-perf": "15.4.2",
@@ -170,12 +172,6 @@
   "engines": {
     "node": ">=8.7.0",
     "npm": ">=5.4.2"
-  },
-  "lint-staged": {
-    "src/**/*.js*": [
-      "prettier --write",
-      "git add"
-    ]
   },
   "jest": {
     "testURL": "http://localhost:8080",

@@ -1,6 +1,8 @@
 
 # Condenser
 
+[![Build Status](https://cloud.drone.io/api/badges/wethex/condenser/status.svg)](https://cloud.drone.io/wethex/condenser)
+
 Condenser is the react.js web interface to the
 blockchain-based social media platform, Hive.blog.  It uses a
 [Hive compatible blockchain](https://gitlab.syncad.com/hive/hive), powered by DPoS Governance and ChainBase DB to store JSON-based content for a plethora of web

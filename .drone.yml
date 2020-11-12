@@ -1,0 +1,47 @@
+---
+kind: pipeline
+type: docker
+name: publishStable
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: buildImage
+  image: plugins/docker
+  settings:
+    password:
+      from_secret: docker_password
+    repo: wethex/condenser
+    tags:
+    - ${DRONE_TAG}
+    - stable
+    target: production
+    username:
+      from_secret: docker_username
+
+- name: deploy
+  image: dtzar/helm-kubectl
+  commands:
+  - echo start deploy
+  - sh ./scripts/loadKubeConf.sh
+  - REPOSITORY=wethex/condenser TAG=stable sh ./scripts/deploy.sh
+  environment:
+    KUBERNETES_CA:
+      from_secret: KUBERNETES_CA
+    KUBERNETES_NAMESPACE:
+      from_secret: KUBERNETES_NAMESPACE
+    KUBERNETES_SERVICE_HOST:
+      from_secret: KUBERNETES_SERVICE_HOST
+    KUBERNETES_TOKEN:
+      from_secret: KUBERNETES_TOKEN
+
+trigger:
+  ref:
+    include:
+    - refs/tags/v*
+    exclude:
+    - refs/tags/v*-rc*
+
+...

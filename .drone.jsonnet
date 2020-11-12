@@ -1,95 +1,79 @@
-
-local TAG = {
-   COMMIT: '${DRONE_COMMIT_BRANCH}-${DRONE_COMMIT_SHA:0:8}',
-   PR: 'PR-${DRONE_SOURCE_BRANCH}-${DRONE_COMMIT_BRANCH}-${DRONE_PULL_REQUEST}-${DRONE_COMMIT_SHA:0:8}',
-   TAG: '${DRONE_TAG}',
-};
-
-local build(tag='COMMIT') = [
+local build() = [
       {
          "name": "buildImage",
-         "image": "docker",
-         "commands": [
-            "export IMAGE="+IMGS[tag],
-            "sh ./scripts/package.sh",
-            "docker push $IMAGE"
-         ],
-         "volumes": [
-            {
-               "name": "docker",
-               "path": "/var/run/docker.sock"
+         "image": "plugins/docker",
+        "settings":{
+            "repo": "wethex/condenser"
+            ,"tags": ["${DRONE_TAG}", "stable"]
+            ,"target": "production"
+            ,"username":{
+               "from_secret": "docker_username"
             }
-         ]
+            ,"password":{
+               "from_secret": "docker_password"
+            }
+        },
+    
       }
    ];
 
-local deploy(script='deploy',tag='TAG') = [
+local deploy(script='deploy') = [
    {
       "name": "deploy",
       "image": "dtzar/helm-kubectl",
-      "privileged": true,
-      "volumes": [
-         {
-            "name": "kubesecret",
-            "path": "/.kubesecret"
-         },
-         {
-            "name": "hostEnv",
-            "path": "/.hostEnv"
+      "environment": {
+         "KUBERNETES_SERVICE_HOST":{
+            "from_secret": "KUBERNETES_SERVICE_HOST"
          }
-      ],
+         ,"KUBERNETES_CA":{
+            "from_secret": "KUBERNETES_CA"
+         }
+         ,"KUBERNETES_TOKEN":{
+            "from_secret": "KUBERNETES_TOKEN"
+         }
+         ,"KUBERNETES_NAMESPACE":{
+            "from_secret": "KUBERNETES_NAMESPACE"
+         }
+      },
       "commands": [
          "echo start deploy"
-         ,"sh .drone/loadKubeConf.sh"
-         ,"REPOSITORY=docker-registry.drone:5000/ryke/server TAG="+TAG[tag]+" sh ./scripts/"+script+".sh"
+         ,"sh ./scripts/loadKubeConf.sh"
+         ,"REPOSITORY=wethex/condenser TAG=stable sh ./scripts/"+script+".sh"
       ]
    }
 ];
 
-local deployVolume=[
-   {
-      "name": "kubesecret",
-      "host": {
-         "path": "/run/secrets/kubernetes.io/serviceaccount"
-      }
-   },
-   {
-      "name": "hostEnv",
-      "host": {
-         "path": "/proc/1/environ"
-      }
-   }
-];
-
-// tag
+// pipeline
+[
 {
    "kind": "pipeline",
    "type": "docker",
-   "name": "NewTag",
+   "name": "publishStable",
    "steps":
-      notify()
-      +build('TAG')
-      + deploy('deploy')
-      + notify('tag status report',
-         {
-            "image": "docker-registry.drone:5000/ryke/server:${DRONE_TAG}",
-            "deployUrl": "https://wow.ryke.io"
-         },
-         './.drone/deploy.md.tpl',
-          {
-            "status": [ 'success','failure']
-         }
-      )
-      ,
-   "volumes": buildVolume+deployVolume,
-   "trigger": {
+      // notify() +
+      build()
+      + deploy()
+      // + notify('tag status report',
+      //    {
+      //       "image": "docker-registry.drone:5000/ryke/server:${DRONE_TAG}",
+      //       "deployUrl": "https://wow.ryke.io"
+      //    },
+      //    './.drone/deploy.md.tpl',
+      //     {
+      //       "status": [ 'success','failure']
+      //    }
+      // )
+      
+   , "trigger": {
       "ref": {
          "include": [
             "refs/tags/v*"
-         ],
+         ]
+         ,
          "exclude": [
             "refs/tags/v*-rc*"
          ]
       }
    }
 }
+]
