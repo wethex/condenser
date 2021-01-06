@@ -29,7 +29,7 @@
     "@hiveio/hive-js": "0.8.4",
     "@hiveio/hivescript": "^1.2.0",
     "@steem/crypto-session": "git+https://github.com/steemit/crypto-session.git#83a90b319ce5bc6a70362d52a15a815de7e729bb",
-    "axios": "0.18.0",
+    "axios": "0.21.1",
     "big.js": "^5.2.2",
     "blueimp-file-upload": "9.12.6",
     "bs58": "3.1.0",
